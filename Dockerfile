@@ -31,6 +31,10 @@ RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add
     apt-get update && apt-get install -y google-chrome-stable && \
     rm -rf /var/lib/apt/lists/*
 
+# Debug: print Chrome version and PATH
+RUN google-chrome --version
+RUN echo $PATH
+
 # Set working directory
 WORKDIR /app
 

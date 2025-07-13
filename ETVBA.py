@@ -196,10 +196,12 @@ config = load_config()
 
 # --- Logging setup ---
 logging.basicConfig(
-    filename=os.path.join(os.path.dirname(__file__), 'error_log.txt'),
-    filemode='a',
+    level=logging.DEBUG,
     format='%(asctime)s %(levelname)s: %(message)s',
-    level=logging.DEBUG
+    handlers=[
+        logging.StreamHandler(sys.stdout),
+        logging.FileHandler(os.path.join(os.path.dirname(__file__), 'error_log.txt'), mode='a')
+    ]
 )
 
 # --- Proxy health tracking ---
@@ -223,6 +225,13 @@ def handle_sigint(sig, frame):
     print("\n\033[91mShutting down...\033[0m")
     shutdown_flag.set()
 signal.signal(signal.SIGINT, handle_sigint)
+
+# Add handler for SIGTERM for container stop
+def handle_sigterm(sig, frame):
+    print("\n\033[91mReceived SIGTERM, shutting down...\033[0m")
+    shutdown_flag.set()
+import signal
+signal.signal(signal.SIGTERM, handle_sigterm)
 
 def is_interactable(element):
     try:
