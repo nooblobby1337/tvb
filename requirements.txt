@@ -1,4 +1,4 @@
-BeautifulSoup
+BeautifulSoup4
 undetected-chromedriver
 psutil
 retrying
