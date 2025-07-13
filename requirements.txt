@@ -1,0 +1,7 @@
+
+undetected-chromedriver
+psutil
+retrying
+requests
+pystyle
+selenium
